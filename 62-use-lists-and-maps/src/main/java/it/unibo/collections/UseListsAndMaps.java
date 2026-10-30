@@ -1,7 +1,8 @@
 package it.unibo.collections;
 
-import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,7 @@ public final class UseListsAndMaps {
     private static final int FIRST_ELEM = 0;
     private static final int ELEMS = 100000;
     private static final int READS = 1000;
+    private static final long INITIALISE_LONG = 0L;
 
     private UseListsAndMaps() {
     }
@@ -29,7 +31,7 @@ public final class UseListsAndMaps {
          * 1) Create a new ArrayList<Integer>, and populate it with the numbers
          * from 1000 (included) to 2000 (excluded).
          */
-        List<Integer> arrayList = new ArrayList<Integer>();
+        List<Integer> arrayList = new ArrayList<>();
 
         for (int i = FIRST_NUMBER; i < LAST_NUMBER; i++) {
             arrayList.add(i);
@@ -39,7 +41,7 @@ public final class UseListsAndMaps {
          * without using any looping construct (for, while), populate it with
          * the same contents of the list of point 1.
          */
-        List<Integer> linkedList = new LinkedList<Integer>(arrayList);
+        List<Integer> linkedList = new LinkedList<>(arrayList);
         /*
          * 3) Using "set" and "get" and "size" methods, swap the first and last
          * element of the first list. You can not use any "magic number".
@@ -83,7 +85,7 @@ public final class UseListsAndMaps {
 
         final var millis2 = TimeUnit.NANOSECONDS.toMillis(time);
         
-        IO.println("The time needed to add" + ELEMS + "ints to an ArrayList is " + time + "ns (or " + millis2 + "ms).");
+        IO.println("The time needed to add " + ELEMS + "ints to an ArrayList is " + time + "ns (or " + millis2 + "ms).");
         /*
          * 6) Measure the performance of reading 1000 times an element whose
          * position is in the middle of the collection for both ArrayList and
@@ -125,9 +127,22 @@ public final class UseListsAndMaps {
          *
          * Oceania -> 38,304,000
          */
-        
+        Map<String, Long> continentMap = new HashMap<>();
+
+        continentMap.put("Africa", 1110635000L);
+        continentMap.put("Americas", 972005000L);
+        continentMap.put("Antarctica", 0L);
+        continentMap.put("Asia", 4298723000L);
+        continentMap.put("Europe", 742452000L);
+        continentMap.put("Oceania", 38304000L);
+
         /*
          * 8) Compute the population of the world
          */
+        long totalPopulation = INITIALISE_LONG;
+        for (long elem : continentMap.values()) {
+            totalPopulation += elem;
+        }
+        IO.println("The world's total population is " + totalPopulation);
     }
 }
