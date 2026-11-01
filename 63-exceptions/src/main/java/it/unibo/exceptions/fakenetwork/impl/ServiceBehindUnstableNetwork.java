@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.random.RandomGenerator;
+import it.unibo.exceptions.fakenetwork.impl.NetworkException;
 
 import static it.unibo.exceptions.arithmetic.ArithmeticService.KEYWORDS;
 import static it.unibo.exceptions.arithmetic.ArithmeticUtil.nullIfNumberOrException;
@@ -68,6 +69,7 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
              *
              * The previous exceptions must be set as the cause of the new exception
              */
+            
         }
     }
 
@@ -83,7 +85,7 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
 
     private void accessTheNetwork(final String message) throws IOException {
         if (randomGenerator.nextDouble() < failProbability) {
-            throw new IOException("Generic I/O error");
+            throw new NetworkException();
         }
     }
 
